@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Add custom icons with Markers</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<style>
+.marker {
+display: block;
+border: none;
+border-radius: 50%;
+cursor: pointer;
+padding: 0;
+}
+</style>
+ 
+<div id="map"></div>
+ 
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VucmVkZHl2aXNobnUiLCJhIjoiY2s5MTRpdHg2MDB1OTNnbndmcW80aGozNyJ9.Wj3lEXConmxgDjufqUIsuw';
+const geojson = {
+'type': 'FeatureCollection',
+'features': [
+{
+'type': 'Feature',
+'properties': {
+'message': 'Foo',
+'iconSize': [60, 60]
+},
+'geometry': {
+'type': 'Point',
+'coordinates': [-66.324462, -16.024695]
+}
+},
+{
+'type': 'Feature',
+'properties': {
+'message': 'Bar',
+'iconSize': [50, 50]
+},
+'geometry': {
+'type': 'Point',
+'coordinates': [-61.21582, -15.971891]
+}
+},
+{
+'type': 'Feature',
+'properties': {
+'message': 'Baz',
+'iconSize': [40, 40]
+},
+'geometry': {
+'type': 'Point',
+'coordinates': [-63.292236, -18.281518]
+}
+}
+]
+};
+ 
+const map = new mapboxgl.Map({
+container: 'map',
+// Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+style: 'mapbox://styles/mapbox/streets-v12',
+center: [78.4867,17.3850],
+zoom: 10
+
+});
+ 
+var marker;
+
+    const el = document.createElement('div');
+const width = 60;
+const height = 60;
+el.className = 'marker';
+el.style.backgroundImage = `url(https://cdn-icons-png.flaticon.com/512/4333/4333686.png)`;
+el.style.width = `${width}px`;
+el.style.height = `${height}px`;
+el.style.backgroundSize = '100%';
+ 
+el.addEventListener('click', () => {
+// window.alert(marker.properties.message);
+});
+ 
+
+var plot=function(newlat,newlng){
+
+
+// Add markers to the map.
+ new mapboxgl.Marker(el)
+.setLngLat([newlng,newlat])
+.addTo(map);
+
+}
+
+
+
+
+setInterval(function(){
+
+
+    fetch('http://localhost:3000/getcords')
+          .then(response => response.json())
+          .then(data => {
+      
+            console.log(data)
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+
+
+
+},1000);
+
+
+
+
+</script>
+ 
+</body>
+</html>
+
+<!-- sk
+sk.eyJ1IjoiZ3VucmVkZHl2aXNobnUiLCJhIjoiY2xoNjd4YmI3MDNjdzNmcWowZmR4NTB4OSJ9.9gE0tMJBuOvH-PnT65R1QQ
+
+pk 
+pk.eyJ1IjoiZ3VucmVkZHl2aXNobnUiLCJhIjoiY2s5MTRpdHg2MDB1OTNnbndmcW80aGozNyJ9.Wj3lEXConmxgDjufqUIsuw -->
