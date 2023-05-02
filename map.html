@@ -77,8 +77,8 @@ zoom: 10
 var marker;
 
     const el = document.createElement('div');
-const width = 60;
-const height = 60;
+const width = 40;
+const height = 40;
 el.className = 'marker';
 el.style.backgroundImage = `url(https://cdn-icons-png.flaticon.com/512/4333/4333686.png)`;
 el.style.width = `${width}px`;
@@ -110,7 +110,11 @@ setInterval(function(){
           .then(response => response.json())
           .then(data => {
       
-            console.log(data)
+            // console.log(data.lat);
+
+
+            plot(data.lat,data.lng);
+
           })
           .catch(error => {
             console.error('Error fetching data:', error);
