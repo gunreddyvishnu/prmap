@@ -106,7 +106,7 @@ var plot=function(newlat,newlng){
 setInterval(function(){
 
 
-    fetch('http://localhost:3000/getcords')
+    fetch('https://cycletrackinggps.onrender.com/getlats')
           .then(response => response.json())
           .then(data => {
       
